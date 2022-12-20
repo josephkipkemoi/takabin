@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CollectorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,9 @@ Route::post('v1/logout', [AuthController::class, 'destroy']);
 
 Route::controller(CollectorController::class)->group(function() {
     Route::get('v1/collectors', 'index');
+});
+
+Route::controller(CollectionController::class)->group(function() {
+    Route::post('v1/collections', 'store');
+    Route::get('v1/collections/view', 'index');
 });
