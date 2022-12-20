@@ -16,6 +16,12 @@ class CollectionController extends Controller
 
     public function index()
     {
-        return Collection::where('collected', false)->get();
+        $collections = Collection::where('collected', false);
+        
+        return  response()
+                    ->json([
+                        'collections' => $collections->get(),
+                        'collections_count' => $collections->count()
+                    ]);
     }
 }

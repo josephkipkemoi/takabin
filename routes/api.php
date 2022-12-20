@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CollecteeController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CollectorController;
 use Illuminate\Http\Request;
@@ -24,6 +25,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('v1/register', [AuthController::class, 'store']);
 Route::post('v1/login', [AuthController::class, 'login']);
 Route::post('v1/logout', [AuthController::class, 'destroy']);
+
+Route::controller(CollecteeController::class)->group(function() {
+    Route::get('v1/users/{user_id}/collectee/collections/pending', 'pending');
+});
 
 Route::controller(CollectorController::class)->group(function() {
     Route::get('v1/collectors', 'index');
