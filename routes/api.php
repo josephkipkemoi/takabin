@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollecteeController;
 use App\Http\Controllers\CollectionController;
@@ -39,4 +40,8 @@ Route::controller(CollectorController::class)->group(function() {
 Route::controller(CollectionController::class)->group(function() {
     Route::post('v1/collections', 'store');
     Route::get('v1/collections/view', 'index');
+});
+
+Route::controller(AddressController::class)->group(function() {
+    Route::post('v1/address', 'store');
 });

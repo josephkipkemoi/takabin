@@ -17,7 +17,7 @@ class CollectionController extends Controller
     public function index()
     {
         $collections = Collection::where('collected', false);
-        
+
         return  response()
                     ->json([
                         'collections' => $collections->get(),
