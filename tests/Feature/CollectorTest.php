@@ -35,7 +35,7 @@ class CollectorTest extends TestCase
         ]);
 
         $response = $this->get('api/v1/collectors');
-       dd($response);
+        
         $response->assertStatus(200);
     }
 }
