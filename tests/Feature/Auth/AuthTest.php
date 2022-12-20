@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -16,15 +17,34 @@ class AuthTest extends TestCase
      *
      * @return void
      */
-    public function test_can_register_user()
+    public function test_can_register_user_as_collectee()
     {
-        $response = $this->post('api/v1/register', [
-            'phone_number' => 0700545727,
+        $role = Role::create([
+            'role' => Role::COLLECTEE
+        ]);
+
+        $response = $this->post("api/v1/register?user_role={$role->id}", [
+            'phone_number' => $this->faker()->numberBetween(1000,10000),
             'password' => 'password',
             'confirm_password' => 'password'
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
+    }
+
+    public function test_can_register_user_as_collector()
+    {
+        $role = Role::create([
+            'role' => Role::COLLECTOR
+        ]);
+
+        $response = $this->post("api/v1/register?user_role={$role->id}", [
+            'phone_number' => $this->faker()->numberBetween(1000,10000),
+            'password' => 'password',
+            'confirm_password' => 'password'
+        ]);
+
+        $response->assertStatus(200);
     }
 
     public function test_user_can_login()
