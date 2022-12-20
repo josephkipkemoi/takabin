@@ -55,6 +55,6 @@ class AuthTest extends TestCase
     {
         $response = $this->post('api/v1/logout');
       
-        $response->assertStatus(204);
+        $response->assertStatus(204);   
     }
 }
