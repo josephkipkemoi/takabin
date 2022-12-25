@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('role');
             $table->timestamps();
         });
+
+        DB::table('roles')->insert(['role' => 'Collector']);
+        DB::table('roles')->insert(['role' => 'Collectee']);
     }
 
     /**

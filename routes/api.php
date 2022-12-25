@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('v1/register', [AuthController::class, 'store']);
+Route::post('v1/register/collector', [AuthController::class, 'store_collector']);
 Route::post('v1/login', [AuthController::class, 'login']);
 Route::post('v1/logout', [AuthController::class, 'destroy']);
 

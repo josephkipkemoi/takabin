@@ -2,44 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomClass\RegistrationClass;
 use App\Http\Requests\AuthenticateRequest;
+use App\Http\Requests\StoreCollectorUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Role;
-use App\Models\RoleUser;
-use App\Models\User;
-use Illuminate\Auth\Events\Registered;
+
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     //
-    public function store(StoreUserRequest $request, Role $role)
-    {       
-        $phone_number = $request->validated()['phone_number'];
-        $password = $request->validated()['password'];
-
-        $user = User::create([
-            'phone_number' => $phone_number,
-            'password' => Hash::make($password)
-        ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-        
-        $role = RoleUser::create([
-            'user_id' => $user->id,
-            'role_id' => $request->query('user_role')
-        ]);
-
-        return response()
-                    ->json([
-                        'user' => $user,
-                        'role' => Role::find($role->role_id)->role
-                    ]);
+    public function store(StoreUserRequest $request)
+    {  
+        RegistrationClass::registerCollectee($request);
     }
 
+    public function store_collector(StoreCollectorUserRequest $collector_request)
+    {
+        RegistrationClass::registerCollector($collector_request);
+    }
+    
     public function login(AuthenticateRequest $request)
     {
         $request->authenticate();
@@ -54,7 +37,7 @@ class AuthController extends Controller
 
     public function destroy()
     {
-        Auth::guard('web')->logout();
+        Auth::guard('api')->logout();
 
         return response()->noContent();
     }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->timestamp('phone_number_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('service_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

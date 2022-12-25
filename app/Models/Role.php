@@ -10,9 +10,12 @@ class Role extends Model
     use HasFactory;
 
     // AVAILABLE ROLES
-    const COLLECTOR = 'collector';
-    const COLLECTEE = 'collectee';
+    const COLLECTOR = 'Collector';
+    const COLLECTEE = 'Collectee';
 
+    const COLLECTORID = 1;
+    const COLLECTEEID = 2;
+    
     protected $fillable = [
         'role'
     ];
