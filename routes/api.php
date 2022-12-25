@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\CollecteeController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CollectorController;
@@ -53,4 +54,8 @@ Route::controller(ServiceController::class)->group(function() {
     Route::post('v1/services', 'store');
     Route::get('v1/services', 'index');
     Route::delete('v1/services/{service_id}', 'destroy');
+});
+
+Route::controller(BalanceController::class)->group(function() {
+    Route::get('v1/users/{user_id}/balance', 'show');
 });
