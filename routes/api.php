@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollecteeController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CollectorController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,4 +46,10 @@ Route::controller(CollectionController::class)->group(function() {
 Route::controller(AddressController::class)->group(function() {
     Route::post('v1/address', 'store');
     Route::get('v1/addresses/users/{user_id}', 'show');
+});
+
+Route::controller(ServiceController::class)->group(function() {
+    Route::post('v1/services', 'store');
+    Route::get('v1/services', 'index');
+    Route::delete('v1/services/{service_id}', 'destroy');
 });
