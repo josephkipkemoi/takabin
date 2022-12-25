@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Role::create([
+            'role' => Role::COLLECTEE
+        ]);
+
+        Role::create([
+            'role' => Role::COLLECTOR
+        ]);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

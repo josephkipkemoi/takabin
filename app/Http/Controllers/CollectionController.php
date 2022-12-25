@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCollectionRequest;
+use App\Models\Address;
 use App\Models\Collection;
-use Illuminate\Http\Request;
+use App\Models\User;
 
 class CollectionController extends Controller
 {
@@ -17,11 +18,16 @@ class CollectionController extends Controller
     public function index()
     {
         $collections = Collection::where('collected', false);
+        $users_to_collect = User::whereIn('id', $collections->get('user_id'));
 
         return  response()
                     ->json([
-                        'collections' => $collections->get(),
-                        'collections_count' => $collections->count()
+                        'collections' => [
+                         'data' => [
+                             'users' => $users_to_collect->get(),
+                            ],
+                        ],
+                        'collections_count' => $users_to_collect->count()
                     ]);
     }
 }

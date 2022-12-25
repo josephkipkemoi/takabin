@@ -23,7 +23,7 @@ class CollectorController extends Controller
 
     public function patch(UpdateCollectionCollectorFields $request, Collection $collection)
     {
-        return $collection->find($request->collection_id)->update($request->validated());
+        return $collection->where('user_id',$request->user_id)->update($request->validated());
     }
 
     public function picked(UpdatePickedCollectionRequest $request, Collection $collection)

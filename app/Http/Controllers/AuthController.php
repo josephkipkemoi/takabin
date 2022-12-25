@@ -9,13 +9,20 @@ use App\Models\RoleUser;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     //
     public function store(StoreUserRequest $request, Role $role)
     {       
-        $user = User::create($request->validated());
+        $phone_number = $request->validated()['phone_number'];
+        $password = $request->validated()['password'];
+
+        $user = User::create([
+            'phone_number' => $phone_number,
+            'password' => Hash::make($password)
+        ]);
 
         event(new Registered($user));
 
@@ -29,7 +36,7 @@ class AuthController extends Controller
         return response()
                     ->json([
                         'user' => $user,
-                        'role' => $role
+                        'role' => Role::find($role->role_id)->role
                     ]);
     }
 
@@ -40,7 +47,8 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         return response()->json([
-            'user' => auth()->user()
+            'user' => auth()->user(),
+            'role' => auth()->user()->roles()->first()->role
         ]);
     }
 
