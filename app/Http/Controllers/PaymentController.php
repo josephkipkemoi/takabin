@@ -12,4 +12,9 @@ class PaymentController extends Controller
     {
         return $payment->create($request->validated());
     }
+
+    public function show($user_id)
+    {
+        return Payment::where('user_id', $user_id)->paginate(15);
+    }
 }

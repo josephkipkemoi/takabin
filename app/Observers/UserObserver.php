@@ -18,7 +18,7 @@ class UserObserver
         //
         Balance::create([
             'user_id' => $user->id,
-            'balance' => 0,
+            'amount' => 0,
             'bonus' => 300
         ]);
     }

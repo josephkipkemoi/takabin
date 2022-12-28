@@ -59,8 +59,10 @@ Route::controller(ServiceController::class)->group(function() {
 
 Route::controller(BalanceController::class)->group(function() {
     Route::get('v1/users/{user_id}/balance', 'show');
+    Route::patch('v1/users/{user_id}/balance', 'patch');
 });
 
 Route::controller(PaymentController::class)->group(function() {
     Route::post('v1/users/{user_id}/collections/{collection_id}/services/{service_id}', 'store');
+    Route::get('v1/users/{user_id}/payments', 'show');
 });

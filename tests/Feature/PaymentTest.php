@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Payment;
 use App\Models\Role;
 use App\Models\Service;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -43,5 +44,35 @@ class PaymentTest extends TestCase
         ]);
 
         $response->assertStatus(201);
+    }
+
+    public function test_can_get_user_payment_records()
+    {
+        $role = Role::factory()->create([
+            'role' => Role::COLLECTOR
+        ]);
+
+        $user = $role->users()->create([
+            'phone_number' => $this->faker()->numberBetween(10000,1000000),
+            'password' => 'password'
+        ]);
+
+        $service = Service::factory()->create();
+
+        $collection = $user->collections()->create([
+            'collection_code' => $this->faker()->word(),
+            'service_id' => $service->id
+        ]);
+
+        $payments = Payment::factory()->create([
+            'user_id' => $user->id,
+            'service_id' => $collection->service_id,
+            'collection_id' => $collection->id,
+            'payment_reference_code' => $this->faker->word()
+        ]);
+
+        $response = $this->get("api/v1/users/$user->id/payments");
+
+        $response->assertOk();
     }
 }
