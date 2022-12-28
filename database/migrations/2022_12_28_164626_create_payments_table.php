@@ -13,22 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('collections', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table
                 ->unsignedBigInteger('user_id')
                 ->references('id')
                 ->on('users');
-            $table->string('collection_code')->unique();
-            $table->unsignedBigInteger('collector_id')->nullable();
             $table
                 ->unsignedBigInteger('service_id')
                 ->references('id')
                 ->on('services');
-            $table->unsignedBigInteger('payment_id')->nullable();
-            $table->boolean('collected')->default(false);
-            $table->timestamp('estimate_collection_time')->nullable();
-            $table->timestamp('collection_collected_at')->nullable();
+            $table
+                ->unsignedBigInteger('collection_id')
+                ->references('id')
+                ->on('collections');
+            $table->string('payment_reference_code')->unique();    
             $table->timestamps();
         });
     }
@@ -40,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('collections');
+        Schema::dropIfExists('payments');
     }
 };

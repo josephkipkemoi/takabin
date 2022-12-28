@@ -5,18 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Collection extends Model
+class Payment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'collection_code',
         'service_id',
-        'collected',
-        'payment_id',
-        'estimate_collection_time',
-        'collection_collected_at'
+        'collection_id',
+        'payment_reference_code'
     ];
 
     public function users()

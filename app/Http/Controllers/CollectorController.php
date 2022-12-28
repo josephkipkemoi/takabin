@@ -14,7 +14,7 @@ class CollectorController extends Controller
     //
     public function index()
     {
-        $roleId = Role::where('role', 'collector')->first()->id;
+        $roleId = Role::where('role', Role::COLLECTOR)->first()->id;
 
         $collectors = Role::find($roleId)->users()->paginate(10);
     

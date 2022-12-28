@@ -15,12 +15,12 @@ class AuthController extends Controller
     //
     public function store(StoreUserRequest $request)
     {  
-        RegistrationClass::registerCollectee($request);
+       return RegistrationClass::registerCollectee($request);
     }
 
     public function store_collector(StoreCollectorUserRequest $collector_request)
     {
-        RegistrationClass::registerCollector($collector_request);
+       return RegistrationClass::registerCollector($collector_request);
     }
     
     public function login(AuthenticateRequest $request)

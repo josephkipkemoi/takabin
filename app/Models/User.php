@@ -51,4 +51,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Balance::class);
     }
+
+    public function collections()
+    {
+        return $this->hasOne(Collection::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

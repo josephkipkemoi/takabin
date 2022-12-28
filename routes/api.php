@@ -6,6 +6,7 @@ use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\CollecteeController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CollectorController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -58,4 +59,8 @@ Route::controller(ServiceController::class)->group(function() {
 
 Route::controller(BalanceController::class)->group(function() {
     Route::get('v1/users/{user_id}/balance', 'show');
+});
+
+Route::controller(PaymentController::class)->group(function() {
+    Route::post('v1/users/{user_id}/collections/{collection_id}/services/{service_id}', 'store');
 });

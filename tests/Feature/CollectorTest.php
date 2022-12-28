@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Collection;
 use App\Models\Role;
+use App\Models\Service;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -40,18 +41,32 @@ class CollectorTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_collector_can_request_for_garbage_collection()
+    public function test_collector_can_request_to_collect_garbage()
     {
-        $role = Role::create([
+        $collector = Role::create([
             'role' => Role::COLLECTOR
         ]);
 
-       $collector = Role::find($role->id)->users()->create([
+        $user = Role::create([
+            'role' => Role::COLLECTEE
+        ]);
+
+        $service = Service::factory()->create();
+
+       $collector = $collector->users()->create([
             'phone_number' => $this->faker()->numberBetween(1000,10000),
             'password' => 'password'
        ]);
 
-       $collection = Collection::factory()->create();
+       $collectee = $user->users()->create([
+        'phone_number' => $this->faker()->numberBetween(1000,10000),
+        'password' => 'password'
+       ]);
+
+       $collection = $collectee->collections()->create([
+            'collection_code' => $this->faker()->word(),
+            'service_id' => $service->id
+       ]);
 
        $response = $this->patch("api/v1/collections/{$collection->id}/patch", [
             'collector_id' => $collector->id,
@@ -63,27 +78,24 @@ class CollectorTest extends TestCase
 
     public function test_collector_can_notify_user_on_garbage_collection()
     {
-        $collectorRole = Role::create([
-            'role' => Role::COLLECTOR
-        ]);
+        $collectorRole = Role::create(['role' => Role::COLLECTOR]);
+        $collecteeRole = Role::create(['role' => Role::COLLECTEE]);
 
-        $collecteeRole = Role::create([
-            'role' => Role::COLLECTEE
-        ]);
+        $service = Service::factory()->create();
 
-       $collectee = Role::find($collecteeRole->id)->users()->create([
+       $collectee = $collecteeRole->users()->create([
             'phone_number' => $this->faker()->numberBetween(1000,10000),
             'password' => 'password'
        ]);
 
-       $collector = Role::find($collectorRole->id)->users()->create([
+       $collector = $collectorRole->users()->create([
         'phone_number' => $this->faker()->numberBetween(1000,10000),
         'password' => 'password'
         ]);
 
-       $collection = Collection::create([
-            'user_id' => $collectee->id,
-            'collection_id' => $this->faker()->word()
+       $collection = $collectee->collections()->create([
+            'collection_code' => $this->faker()->word(),
+            'service_id' => $service->id
        ]);
 
        $this->patch("api/v1/collections/{$collection->id}/patch", [

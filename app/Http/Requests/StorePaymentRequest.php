@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCollectionRequest extends FormRequest
+class StorePaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,9 @@ class StoreCollectionRequest extends FormRequest
         return [
             //
             'user_id' => ['required', 'numeric'],
-            'collection_code' => ['required', 'string'],
-            'service_id' => ['required', 'numeric']
+            'service_id' => ['required', 'numeric'],
+            'collection_id' => ['required', 'numeric'],
+            'payment_reference_code' => ['required', 'string']
         ];
     }
 }

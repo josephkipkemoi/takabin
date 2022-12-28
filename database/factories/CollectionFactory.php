@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,8 +20,8 @@ class CollectionFactory extends Factory
     {
         return [
             //
-            'user_id' => User::factory()->create()->id,
-            'collection_id' => $this->faker->word()
+            'collection_code' => $this->faker->word(),
+            'service_id' => Service::factory()->create()->id
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Collection;
 use App\Models\Role;
+use App\Models\Service;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -23,15 +24,17 @@ class CollectionTest extends TestCase
             'role' => Role::COLLECTEE
         ]);
         // Register User
-        $this->post("api/v1/register?user_role={$role_collectee->id}", [
-            'phone_number' => $this->faker()->numberBetween(1000,10000),
-            'password' => 'password',
-            'confirm_password' => 'password'
+        $user = $role_collectee->users()->create([
+            'phone_number' => $this->faker()->numberBetween(10000,1000000),
+            'password' => 'password'
         ]);
+        
+        $service = Service::factory()->create();
 
         $response = $this->post("api/v1/collections", [
-            'user_id' => 1,
-            'collection_id' => $this->faker()->word(),
+            'user_id' => $user->id,
+            'collection_code' => $this->faker()->word(),
+            'service_id' => $service->id
         ]);
 
         $response->assertStatus(201);
@@ -39,8 +42,6 @@ class CollectionTest extends TestCase
 
     public function test_collectors_can_view_collections()
     {
-        Collection::factory()->create();
-
         $response = $this->get('api/v1/collections/view');
 
         $response->assertStatus(200);

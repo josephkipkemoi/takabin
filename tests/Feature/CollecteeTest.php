@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Collection;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -21,20 +22,21 @@ class CollecteeTest extends TestCase
     {
         $user = User::factory()->create();
         $user_2 = User::factory()->create();
+        $service = Service::factory()->create();
 
-        Collection::create([
-            'user_id' => $user->id,
-            'collection_id' => $this->faker()->word()
+        $user->collections()->create([
+            'service_id' => $service->id,
+            'collection_code' => $this->faker()->word()
         ]);
 
-        Collection::create([
-            'user_id' => $user->id,
-            'collection_id' => $this->faker()->word()
+        $user->collections()->create([
+            'service_id' => $service->id,
+            'collection_code' => $this->faker()->word()
         ]);
 
-        Collection::create([
-            'user_id' => $user_2->id,
-            'collection_id' => $this->faker()->word()
+        $user_2->collections()->create([
+            'service_id' => $service->id,
+            'collection_code' => $this->faker()->word()
         ]);
 
         $response = $this->get("api/v1/users/{$user->id}/collectee/collections/pending");
