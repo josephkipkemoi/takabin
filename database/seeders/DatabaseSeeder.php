@@ -17,14 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Role::create([
-            'role' => Role::COLLECTEE
-        ]);
-
-        Role::create([
-            'role' => Role::COLLECTOR
-        ]);
-
+       
         Service::factory(5)->create();
         // \App\Models\User::factory(10)->create();
 
