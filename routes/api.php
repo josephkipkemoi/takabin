@@ -7,6 +7,7 @@ use App\Http\Controllers\CollecteeController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CollectorController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,10 @@ Route::post('v1/register', [AuthController::class, 'store']);
 Route::post('v1/register/collector', [AuthController::class, 'store_collector']);
 Route::post('v1/login', [AuthController::class, 'login']);
 Route::post('v1/logout', [AuthController::class, 'destroy']);
+
+Route::controller(RoleController::class)->group(function() {
+    Route::get('v1/roles', 'index');
+});
 
 Route::controller(CollecteeController::class)->group(function() {
     Route::get('v1/users/{user_id}/collectee/collections/pending', 'pending');

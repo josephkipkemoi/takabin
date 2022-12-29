@@ -9,6 +9,8 @@ class Balance extends Model
 {
     use HasFactory;
 
+    const BONUS_AMOUNT = 300;
+
     protected $fillable = [
         'user_id',
         'amount',

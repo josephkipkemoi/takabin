@@ -2,6 +2,7 @@
 
 namespace App\CustomClass;
 
+use App\Models\Balance;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
@@ -17,7 +18,7 @@ class RegistrationClass
         $password = $request->validated()['password'];
         $role_id = $request->validated()['role_id'];
 
-        $user = User::create([
+        $user = Role::find($role_id)->users()->create([
             'phone_number' => $phone_number,
             'password' => Hash::make($password)
         ]);
@@ -25,16 +26,11 @@ class RegistrationClass
         event(new Registered($user));
     
         Auth::login($user);
-            
-        $role = RoleUser::create([
-            'user_id' => $user->id,
-            'role_id' => $role_id 
-        ]);
-            
+
         return response()
                 ->json([
                     'user' => $user,
-                    'role' => Role::find($role->role_id)->role
+                    'role' => $user->roles->first()->role
                  ]);   
     }
 
@@ -45,25 +41,20 @@ class RegistrationClass
         $role_id = $request->validated()['role_id'];
         $service_id = $request->validated()['service_id'];
 
-        $user = User::create([
+        $user = Role::find($role_id)->users()->create([
             'phone_number' => $phone_number,
-            'password' => Hash::make($password),
-            'service_id' => $service_id
+            'service_id' => $service_id,
+            'password' => Hash::make($password)
         ]);
     
         event(new Registered($user));
     
         Auth::login($user);
-            
-        $role = RoleUser::create([
-            'user_id' => $user->id,
-            'role_id' => $role_id 
-        ]);
-            
+        
         return response()
                 ->json([
                     'user' => $user,
-                    'role' => Role::find($role->role_id)->role
+                    'role' => $user->roles->first()->role
                  ]);   
     }
 }
