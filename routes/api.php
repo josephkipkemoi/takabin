@@ -42,7 +42,7 @@ Route::controller(CollecteeController::class)->group(function() {
 
 Route::controller(CollectorController::class)->group(function() {
     Route::get('v1/collectors', 'index');
-    Route::patch('v1/collections/{user_id}/patch', 'patch');
+    Route::patch('v1/collections/{collection_id}/patch', 'patch');
     Route::patch('v1/collections/{collection_id}/picked', 'picked');
 });
 

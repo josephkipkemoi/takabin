@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePickedCollectionRequest;
 use App\Models\Collection;
 use App\Models\Role;
 use App\Models\RoleUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CollectorController extends Controller
@@ -23,7 +24,7 @@ class CollectorController extends Controller
 
     public function patch(UpdateCollectionCollectorFields $request, Collection $collection)
     {
-        return $collection->where('user_id',$request->user_id)->update($request->validated());
+        return $collection->find($request->collection_id)->update($request->validated());
     }
 
     public function picked(UpdatePickedCollectionRequest $request, Collection $collection)

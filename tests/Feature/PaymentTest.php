@@ -21,7 +21,7 @@ class PaymentTest extends TestCase
     public function test_user_can_post_payment()
     {
         $role = Role::factory()->create([
-            'role' => Role::COLLECTOR
+            'role' => Role::COLLECTEE
         ]);
 
         $user = $role->users()->create([
@@ -34,6 +34,11 @@ class PaymentTest extends TestCase
         $collection = $user->collections()->create([
             'collection_code' => $this->faker()->word(),
             'service_id' => $service->id
+        ]);
+
+        $collection->update([
+            'collector_id' => 1,
+            'estimate_collection_time' => '2022-12-20 17:28:29'
         ]);
 
         $response = $this->post("api/v1/users/$user->id/collections/$collection->id/services/$collection->service_id", [

@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public function collections()
     {
-        return $this->hasOne(Collection::class);
+        return $this->hasMany(Collection::class);
     }
 
     public function payments()

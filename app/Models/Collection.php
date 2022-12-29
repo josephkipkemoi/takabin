@@ -12,6 +12,7 @@ class Collection extends Model
     protected $fillable = [
         'user_id',
         'collection_code',
+        'collector_id',
         'service_id',
         'collected',
         'payment_id',

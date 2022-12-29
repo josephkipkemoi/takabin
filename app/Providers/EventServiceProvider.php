@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Collection;
+use App\Models\Payment;
 use App\Models\User;
 use App\Observers\CollectionObserver;
+use App\Observers\PaymentObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -34,6 +36,7 @@ class EventServiceProvider extends ServiceProvider
         //
         User::observe(UserObserver::class);
         Collection::observe(CollectionObserver::class);
+        Payment::observe(PaymentObserver::class);
     }
 
     /**

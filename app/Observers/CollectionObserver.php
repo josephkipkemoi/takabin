@@ -25,8 +25,11 @@ class CollectionObserver
      */
     public function updated(Collection $collection)
     {
-        //
+        // Notify User
+        // $user = $collection->user_id;
+        // if($collection->collection_collected_at == null) {
 
+        // }
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCollectionRequest;
 use App\Models\Address;
 use App\Models\Collection;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class CollectionController extends Controller
 {
@@ -15,19 +16,15 @@ class CollectionController extends Controller
         return $collection->create($request->validated());
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $collections = Collection::where('collected', false);
-        $users_to_collect = User::whereIn('id', $collections->get('user_id'));
-
+        $collections = Collection::where('collected', false)
+                                   ->where('service_id', $request->query('service_id'));
+                                          
         return  response()
                     ->json([
-                        'collections' => [
-                         'data' => [
-                             'users' => $users_to_collect->get(),
-                            ],
-                        ],
-                        'collections_count' => $users_to_collect->count()
+                        'collections' => $collections->get(),
+                        'collections_count' =>  $collections->get()->count()
                     ]);
     }
 }

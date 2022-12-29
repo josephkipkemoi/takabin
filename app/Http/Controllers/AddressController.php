@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAddressRequest;
 use App\Models\Address;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
@@ -16,6 +17,13 @@ class AddressController extends Controller
 
     public function show(Request $request)
     {
-        return Address::where('user_id', $request->user_id)->first();
+        $address = Address::where('user_id', $request->user_id)->first();
+        $user = User::find($request->user_id);
+
+        return response()
+                    ->json([
+                        'user' => $user,
+                        'address' => $address
+                    ]);
     }
 }
