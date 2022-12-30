@@ -25,7 +25,7 @@ class RegistrationClass
     
         event(new Registered($user));
     
-        Auth::login($user);
+        Auth::login($user, remember: true);
 
         return response()
                 ->json([
@@ -49,7 +49,7 @@ class RegistrationClass
     
         event(new Registered($user));
     
-        Auth::login($user);
+        Auth::login($user, remember: true);
         
         return response()
                 ->json([

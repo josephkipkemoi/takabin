@@ -13,6 +13,6 @@ class CollecteeController extends Controller
         return $collection
                     ->where('user_id', $request->user_id)
                     ->where('collected', false)
-                    ->first();
+                    ->get();
     }
 }
