@@ -25,12 +25,18 @@ class RegistrationClass
     
         event(new Registered($user));
     
-        Auth::login($user, remember: true);
+        $token = Auth::login($user);
 
         return response()
                 ->json([
+                    'status' => 'success',
+                    'message' => 'Account created succesfully',
                     'user' => $user,
-                    'role' => $user->roles->first()->role
+                    'role' => $user->roles->first()->role,
+                    'authorization' => [
+                        'token' => $token,
+                        'type' => 'bearer'
+                    ]
                  ]);   
     }
 
@@ -49,12 +55,18 @@ class RegistrationClass
     
         event(new Registered($user));
     
-        Auth::login($user, remember: true);
+        $token = Auth::login($user);
         
         return response()
                 ->json([
+                    'status' => 'success',
+                    'message' => 'Account created succesfully',
                     'user' => $user,
-                    'role' => $user->roles->first()->role
+                    'role' => $user->roles->first()->role,
+                    'authorization' => [
+                        'token' => $token,
+                        'type' => 'bearer'
+                    ]
                  ]);   
     }
 }

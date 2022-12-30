@@ -79,7 +79,7 @@ class AuthTest extends TestCase
     public function test_user_can_logout()
     {
         $response = $this->post('api/v1/logout');
-      
+       
         $response->assertStatus(204);   
     }
 }

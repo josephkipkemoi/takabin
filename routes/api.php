@@ -6,6 +6,7 @@ use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\CollecteeController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CollectorController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
@@ -27,9 +28,9 @@ Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('v1/register', [AuthController::class, 'store']);
-Route::post('v1/register/collector', [AuthController::class, 'store_collector']);
-Route::post('v1/login', [AuthController::class, 'login']);
+Route::post('v1/register', [AuthController::class, 'store'])->name('store');
+Route::post('v1/register/collector', [AuthController::class, 'store_collector'])->name('store_collector');
+Route::post('v1/login', [AuthController::class, 'login'])->name('login');
 Route::post('v1/logout', [AuthController::class, 'destroy']);
 
 Route::controller(RoleController::class)->group(function() {
@@ -49,7 +50,7 @@ Route::controller(CollectorController::class)->group(function() {
 Route::controller(CollectionController::class)->group(function() {
     Route::post('v1/collections', 'store');
     Route::get('v1/collections/view', 'index');
-});
+})->middleware('auth:api');
 
 Route::controller(AddressController::class)->group(function() {
     Route::post('v1/address', 'store');
@@ -70,4 +71,8 @@ Route::controller(BalanceController::class)->group(function() {
 Route::controller(PaymentController::class)->group(function() {
     Route::post('v1/users/{user_id}/collections/{collection_id}/services/{service_id}', 'store');
     Route::get('v1/users/{user_id}/payments', 'show');
+});
+
+Route::controller(NotificationsController::class)->group(function() {
+    Route::get('v1/users/{user_id}/notifications', 'show');
 });

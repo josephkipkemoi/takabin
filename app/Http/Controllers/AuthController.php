@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['store', 'store_collector', 'login']]);
+    }
     //
     public function store(StoreUserRequest $request)
     {  
@@ -29,15 +33,32 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
+        $token = Auth::attempt($request->validated());
+
+        if(!$token) {
+            return response()
+                    ->json([
+                        'status' => 'error',
+                        'message' => 'unauthorized'
+                    ], 401);
+        }
+        
+        $user = auth()->user();
+
         return response()->json([
-            'user' => auth()->user(),
-            'role' => auth()->user()->roles()->first()->role
+            'status' => 'success',
+            'user' => $user,
+            'role' => $user->roles()->first()->role,
+            'authorization' => [
+                'token' => $token,
+                'type' => 'bearer'
+            ]
         ]);
     }
 
     public function destroy()
     {
-        Auth::guard('api')->logout();
+        Auth::logout();
 
         return response()->noContent();
     }

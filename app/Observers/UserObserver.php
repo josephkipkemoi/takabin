@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\User;
+use App\Notifications\UserRegisteredNotification;
 
 class UserObserver
 {
@@ -19,6 +20,8 @@ class UserObserver
             'amount' => 0,
             'bonus' => 0
         ]);
+
+        $user->notify(new UserRegisteredNotification($user));
 
     }
 

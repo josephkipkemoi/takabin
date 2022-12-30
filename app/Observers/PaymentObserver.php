@@ -4,6 +4,8 @@ namespace App\Observers;
 
 use App\Models\Collection;
 use App\Models\Payment;
+use App\Models\User;
+use App\Notifications\InvoicePaidNotification;
 
 class PaymentObserver
 {
@@ -16,11 +18,14 @@ class PaymentObserver
     public function created(Payment $payment)
     {
         //
-        Collection::find($payment->collection_id)->update([
+        $collection = Collection::find($payment->collection_id);
+        $collection->update([
             'payment_id' => $payment->id,
             'collected' => true,
             'collection_collected_at' => now()
         ]);
+
+        User::find($payment->user_id)->notify(new InvoicePaidNotification($payment->payment_reference_code));
     }
 
     /**
