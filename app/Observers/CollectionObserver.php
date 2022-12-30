@@ -3,6 +3,9 @@
 namespace App\Observers;
 
 use App\Models\Collection;
+use App\Models\Role;
+use App\Notifications\NewCollectionNotification;
+use Illuminate\Support\Facades\Notification;
 
 class CollectionObserver
 {
@@ -15,6 +18,9 @@ class CollectionObserver
     public function created(Collection $collection)
     {
         //
+        $collectors =  Role::where('role', Role::COLLECTOR)->first()->users;
+        
+        Notification::send($collectors, new NewCollectionNotification($collection));
     }
 
     /**

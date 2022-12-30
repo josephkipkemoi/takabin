@@ -21,13 +21,32 @@ class CollectionTest extends TestCase
      */
     public function test_collectee_user_can_request_for_collection()
     {
-        $role_collectee = Role::create([
+        $role_collectee = Role::where([
             'role' => Role::COLLECTEE
+        ])->first();
+
+        $collector = Role::where([
+            'role' => Role::COLLECTOR
+        ])->first();
+
+        $service_id = Service::factory()->create()->id;
+
+        $collector->users()->create([
+            'phone_number' => $this->faker()->numberBetween(10000,1000000),
+            'password' => 'password',
+            'service_id' => $service_id
         ]);
         // Register User
         $user = $role_collectee->users()->create([
             'phone_number' => $this->faker()->numberBetween(10000,1000000),
             'password' => 'password'
+        ]);
+
+        $user->address()->create([
+            'county' => 'Nairobi',
+            'sub_county' => $this->faker->word(),
+            'estate' => $this->faker->word(),
+            'house_number' => $this->faker->numberBetween(10,1000)
         ]);
         
         $service = Service::factory()->create();
@@ -71,8 +90,8 @@ class CollectionTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_can_view_user_collection_requests()
-    {
+    // public function test_can_view_user_collection_requests()
+    // {
         
-    }
+    // }
 }
