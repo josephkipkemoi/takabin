@@ -39,7 +39,7 @@ class CollecteeTest extends TestCase
             'collection_code' => $this->faker()->word()
         ]);
 
-        $response = $this->get("api/v1/users/{$user->id}/collectee/collections/pending");
+        $response = $this->get("api/v1/users/{$user->id}/collectee/collections?collected=0");
 
         $response->assertStatus(200);
     }

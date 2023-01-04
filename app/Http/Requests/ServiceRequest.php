@@ -25,7 +25,9 @@ class ServiceRequest extends FormRequest
     {
         return [
             //
-            'service' => ['required', 'string']
+            'service' => ['required', 'string'],
+            'service_description' => ['required', 'string'],
+            'service_img_url' => ['string']
         ];
     }
 }

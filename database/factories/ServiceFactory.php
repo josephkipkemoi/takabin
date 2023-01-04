@@ -18,7 +18,9 @@ class ServiceFactory extends Factory
     {
         return [
             //
-            'service' => $this->faker->word()
+            'service' => $this->faker->word(),
+            'service_description' => $this->faker->sentence(),
+            'service_img_url' => $this->faker->imageUrl()
         ];
     }
 }

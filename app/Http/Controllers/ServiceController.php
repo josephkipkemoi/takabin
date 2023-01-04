@@ -10,7 +10,7 @@ class ServiceController extends Controller
     //
     public function index()
     {
-        return Service::get(['id', 'service']);
+        return Service::get(['id', 'service', 'service_description', 'service_img_url']);
     }
 
     public function store(ServiceRequest $request,Service $service)

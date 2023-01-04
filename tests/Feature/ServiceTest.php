@@ -22,7 +22,9 @@ class ServiceTest extends TestCase
     public function test_can_add_service()
     {
         $response = $this->post('api/v1/services', [
-            'service' => $this->faker()->word()
+            'service' => $this->faker()->word(),
+            'service_description' => $this->faker()->text(),
+            'service_img_url' => $this->faker()->imageUrl()
         ]);
 
         $response->assertStatus(201);
