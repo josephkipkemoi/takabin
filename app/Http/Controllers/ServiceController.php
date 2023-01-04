@@ -13,6 +13,11 @@ class ServiceController extends Controller
         return Service::get(['id', 'service', 'service_description', 'service_img_url']);
     }
 
+    public function show($service_id)
+    {
+        return Service::find($service_id);
+    }
+
     public function store(ServiceRequest $request,Service $service)
     {
         return $service->create($request->validated());

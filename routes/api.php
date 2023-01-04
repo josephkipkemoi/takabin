@@ -60,6 +60,7 @@ Route::controller(AddressController::class)->group(function() {
 Route::controller(ServiceController::class)->group(function() {
     Route::post('v1/services', 'store');
     Route::get('v1/services', 'index');
+    Route::get('v1/services/{service_id}', 'show');
     Route::delete('v1/services/{service_id}', 'destroy');
 });
 

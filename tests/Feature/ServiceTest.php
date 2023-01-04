@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Service;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use React\Http\Server;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertNotContains;
@@ -37,6 +38,15 @@ class ServiceTest extends TestCase
         $response = $this->get('api/v1/services');
 
         assertSame(json_decode($response->getContent())[0]->service, $services->service);
+
+        $response->assertOk();
+    }
+
+    public function test_can_show_service_by_id()
+    {
+        $service = Service::factory()->create();
+
+        $response = $this->get("api/v1/services/$service->id");
 
         $response->assertOk();
     }
