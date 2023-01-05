@@ -7,7 +7,7 @@ use App\Http\Requests\AuthenticateRequest;
 use App\Http\Requests\StoreCollectorUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Role;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -29,11 +29,13 @@ class AuthController extends Controller
     
     public function login(AuthenticateRequest $request)
     {
+        $remember = $request->query('remember');
+
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        $token = Auth::attempt($request->validated());
+  
+        $token = Auth::attempt($request->validated(), $remember);
 
         if(!$token) {
             return response()

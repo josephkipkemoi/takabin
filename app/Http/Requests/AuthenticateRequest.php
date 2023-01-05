@@ -32,7 +32,8 @@ class AuthenticateRequest extends FormRequest
         return [
             //
             'phone_number' => ['required', 'numeric'],
-            'password' => ['required', 'string']
+            'password' => ['required', 'string'],
+            'remember_me' => ['boolean']
         ];
     }
 

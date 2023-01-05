@@ -56,9 +56,9 @@ class AuthTest extends TestCase
             'role' => $this->faker()->word()
         ]);
 
-        $response = $this->post('api/v1/login', [
+        $response = $this->post('api/v1/login?remember=true', [
             'phone_number' => $user->phone_number,
-            'password' => 'password'
+            'password' => 'password',
         ]);
       
         $response->assertOk();
