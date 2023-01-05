@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Address;
 use App\Models\Collection;
 use App\Models\Payment;
 use App\Models\User;
+use App\Observers\AddressObserver;
 use App\Observers\CollectionObserver;
 use App\Observers\PaymentObserver;
 use App\Observers\UserObserver;
@@ -37,6 +39,7 @@ class EventServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Collection::observe(CollectionObserver::class);
         Payment::observe(PaymentObserver::class);
+        Address::observe(AddressObserver::class);
     }
 
     /**
