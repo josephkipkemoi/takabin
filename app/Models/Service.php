@@ -14,4 +14,9 @@ class Service extends Model
         'service_description',
         'service_img_url'
     ];
+
+    public function collections()
+    {
+        return $this->hasMany(Collection::class);
+    }
 }
