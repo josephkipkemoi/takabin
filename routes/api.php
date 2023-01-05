@@ -10,6 +10,7 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ValidationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -77,4 +78,9 @@ Route::controller(PaymentController::class)->group(function() {
 Route::controller(NotificationsController::class)->group(function() {
     Route::get('v1/users/{user_id}/notifications', 'show');
     Route::post('v1/users/{user_id}/notifications/read', 'mark_all_read');
+});
+
+// Validation
+Route::controller(ValidationController::class)->group(function () {
+    Route::get('v1/validate', 'validated');
 });
