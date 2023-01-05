@@ -24,8 +24,10 @@ class NotificationTest extends TestCase
             'phone_number' => $this->faker()->numberBetween(10000,100000),
             'password' => 'password'
         ]);
-
-        $response = $this->get("api/v1/users/$user->id/notifications");
+        // all notifications
+        // unread notifications
+        //  read notifications
+        $response = $this->get("api/v1/users/$user->id/notifications?status=unread");
 
         $response->assertStatus(200);
     }

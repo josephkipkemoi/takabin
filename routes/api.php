@@ -76,4 +76,5 @@ Route::controller(PaymentController::class)->group(function() {
 
 Route::controller(NotificationsController::class)->group(function() {
     Route::get('v1/users/{user_id}/notifications', 'show');
+    Route::post('v1/users/{user_id}/notifications/read', 'mark_all_read');
 });

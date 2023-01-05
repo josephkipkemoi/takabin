@@ -56,7 +56,8 @@ class UserRegisteredNotification extends Notification
     {
         return [
             //
-            'message' => 'Welcome to Takabin'
+            'message' => 'Welcome to Takabin, click here to claim bonus',
+            'bonus_url' => 'registration_bonus'
         ];
     }
 }
