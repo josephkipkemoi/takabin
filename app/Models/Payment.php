@@ -14,7 +14,8 @@ class Payment extends Model
         'user_id',
         'service_id',
         'collection_id',
-        'payment_reference_code'
+        'payment_reference_code',
+        'amount'
     ];
 
     public function users()

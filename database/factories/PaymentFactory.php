@@ -31,7 +31,8 @@ class PaymentFactory extends Factory
             'user_id' => $user->id,
             'service_id' => $collection->service_id,
             'collection_id' => $collection->id,
-            'payment_reference_code' => $this->faker->word()
+            'payment_reference_code' => $this->faker->word(),
+            'amount' => $this->faker->numberBetween(100,500)
         ];
     }
 }

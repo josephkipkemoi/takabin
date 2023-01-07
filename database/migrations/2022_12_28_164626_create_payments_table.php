@@ -28,6 +28,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('collections');
             $table->string('payment_reference_code')->unique();    
+            $table->unsignedBigInteger('amount');
             $table->timestamps();
         });
     }

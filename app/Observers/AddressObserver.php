@@ -20,7 +20,7 @@ class AddressObserver
         $bonus_amount = 300;
         $user = User::find($address->user_id);
 
-        $user->balance()->update(['bonus' => $bonus_amount]);
+        $user->balance()->update(['amount' => $bonus_amount]);
 
         $user->notify(new AddressUpdateBonusNotification($bonus_amount));
     }

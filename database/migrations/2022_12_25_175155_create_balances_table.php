@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('amount')->default(0);
-            $table->unsignedBigInteger('bonus')->default(0);
             $table->timestamps();
         });
     }

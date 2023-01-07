@@ -17,8 +17,7 @@ class UserObserver
     {
         //
         $user->balance()->create([
-            'amount' => 0,
-            'bonus' => 0
+            'amount' => 0
         ]);
 
         $user->notify(new UserRegisteredNotification($user));

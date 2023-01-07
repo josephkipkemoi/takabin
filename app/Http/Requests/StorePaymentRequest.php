@@ -28,7 +28,8 @@ class StorePaymentRequest extends FormRequest
             'user_id' => ['required', 'numeric'],
             'service_id' => ['required', 'numeric'],
             'collection_id' => ['required', 'numeric'],
-            'payment_reference_code' => ['required', 'string']
+            'payment_reference_code' => ['required', 'string'],
+            'amount' => ['required', 'numeric']
         ];
     }
 }

@@ -9,13 +9,22 @@ use Illuminate\Http\Request;
 class CollecteeController extends Controller
 {
     //
-    public function pending(Request $request, Collection $collection)
+    public function index(Request $request, Collection $collection)
     {
-        $collections = $collection
-                            ->where('user_id', $request->user_id)
-                            ->where('collected', $request->query('collected'))
-                            ->orderBy('created_at', 'desc') ;
 
-        return $collections->get();
+        // 'collected', $request->query('collected')
+        $collections = $collection
+                            ->where([
+                                ['user_id', '=',$request->user_id],
+                                ['collected', '=', $request->query('collected')]
+
+                                ])
+                            // ->where(function ($query) {
+                            //     $query->where('collected', $request->query('collected'));
+                            // })
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(10) ;
+
+        return $collections;
     }
 }

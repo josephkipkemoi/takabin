@@ -18,6 +18,7 @@ class AddressFactory extends Factory
     {
         return [
             //
+            // ''
             'county' => 'Nairobi',
             'sub_county' => $this->faker->word(),
             'estate' => $this->faker->word(),

@@ -39,7 +39,7 @@ Route::controller(RoleController::class)->group(function() {
 });
 
 Route::controller(CollecteeController::class)->group(function() {
-    Route::get('v1/users/{user_id}/collectee/collections', 'pending');
+    Route::get('v1/users/{user_id}/collectee/collections', 'index');
 });
 
 Route::controller(CollectorController::class)->group(function() {

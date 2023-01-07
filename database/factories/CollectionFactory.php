@@ -20,6 +20,7 @@ class CollectionFactory extends Factory
     {
         return [
             //
+            'user_id' => User::factory()->create(),
             'collection_code' => $this->faker->word(),
             'service_id' => Service::factory()->create()->id
         ];
